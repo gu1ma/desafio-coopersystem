@@ -39,7 +39,11 @@ export default function InvestimentsList({ navigation }) {
         keyExtractor={(investItem) => String(investItem.nome)}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate('RescueConfirm', item)}>
+            onPress={() => {
+              if (item.indicadorCarencia === 'N') {
+                navigation.navigate('RescueConfirm', item);
+              }
+            }}>
             <Item itemData={item} />
           </TouchableOpacity>
         )}
