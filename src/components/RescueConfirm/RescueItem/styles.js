@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
 
+import { TextInputMask } from 'react-native-masked-text';
+
 export const ContainerStocks = styled.View`
   margin-bottom: 20px;
 `;
@@ -44,7 +46,7 @@ export const RescueInputTextCoin = styled.Text`
   font-size: 18px;
 `;
 
-export const RescueInput = styled.TextInput`
+export const RescueInput = styled(TextInputMask)`
   margin-top: -10px;
   padding-bottom: -10px;
   flex: 1;

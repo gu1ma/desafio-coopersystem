@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 
-const reducers = combineReducers({
-  // Remova essa linha depois de adicionar seus ducks
-  example: () => [],
-});
+import { reducer as rescue } from './rescue';
 
-export default reducers;
+export default combineReducers({
+  rescue,
+});

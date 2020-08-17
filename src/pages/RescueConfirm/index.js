@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   Container,
@@ -14,9 +16,39 @@ import RescueItem from '~/components/RescueConfirm/RescueItem';
 
 export default function RescueConfirm({ route }) {
   const investData = route.params;
-  console.log('params', investData);
+  const dispatch = useDispatch();
+
+  const { stocks } = useSelector((state) => state.rescue);
+  const [total, setTotal] = useState(0);
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    let totalStock = 0;
+    let valid = true;
+    stocks.map((stock) => {
+      totalStock += stock.value;
+      if (!stock.valid) {
+        valid = false;
+      }
+    });
+
+    setButtonDisabled(!valid);
+    setTotal(totalStock);
+  }, [stocks]);
+
+  useEffect(() => {
+    dispatch({
+      type: 'SET_STOCKS',
+      stocks: investData.acoes.map((stock) => {
+        return {
+          ...stock,
+          value: 0,
+          valid: true,
+        };
+      }),
+    });
+  }, []);
 
   return (
     <Container>
@@ -45,6 +77,12 @@ export default function RescueConfirm({ route }) {
           total={investData.saldoTotalDisponivel}
         />
       ))}
+      <InfoContainer>
+        <Title>Valor total a resgatar</Title>
+        <Desc>
+          {total.toLocaleString('pt-br', { minimumFractionDigits: 2 })}
+        </Desc>
+      </InfoContainer>
       <ButtonRescue disabled={buttonDisabled}>
         <ButtonRescueText>CONFIRMAR RESGATE</ButtonRescueText>
       </ButtonRescue>

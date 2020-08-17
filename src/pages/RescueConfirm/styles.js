@@ -32,6 +32,7 @@ export const ButtonRescue = styled.TouchableOpacity`
   align-items: center;
   width: 100%;
   padding: 15px;
+  margin-top: 20px;
 `;
 
 export const ButtonRescueText = styled.Text`
