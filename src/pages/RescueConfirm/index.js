@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
+import CustomModal from '~/components/CustomModal';
+
 import {
   Container,
   InfoContainer,
@@ -14,7 +16,7 @@ import ListHeader from '~/components/InvestimentsList/Header';
 
 import RescueItem from '~/components/RescueConfirm/RescueItem';
 
-export default function RescueConfirm({ route }) {
+export default function RescueConfirm({ route, navigation }) {
   const investData = route.params;
   const dispatch = useDispatch();
 
@@ -22,6 +24,8 @@ export default function RescueConfirm({ route }) {
   const [total, setTotal] = useState(0);
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     let totalStock = 0;
@@ -52,6 +56,13 @@ export default function RescueConfirm({ route }) {
 
   return (
     <Container>
+      <CustomModal
+        visible={modalVisible}
+        handleModalClick={() => {
+          setModalVisible(!modalVisible);
+          navigation.goBack();
+        }}
+      />
       <ListHeader leftTitle="Dados do investimento" rightTitle="" />
       <InfoContainer>
         <Title>Nome</Title>
@@ -83,7 +94,9 @@ export default function RescueConfirm({ route }) {
           {total.toLocaleString('pt-br', { minimumFractionDigits: 2 })}
         </Desc>
       </InfoContainer>
-      <ButtonRescue disabled={buttonDisabled}>
+      <ButtonRescue
+        disabled={buttonDisabled}
+        onPress={() => setModalVisible(true)}>
         <ButtonRescueText>CONFIRMAR RESGATE</ButtonRescueText>
       </ButtonRescue>
     </Container>
