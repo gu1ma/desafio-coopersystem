@@ -37,7 +37,7 @@ export default function RescueConfirm({ route, navigation }) {
       }
     });
 
-    setButtonDisabled(!valid);
+    setButtonDisabled(!valid || totalStock <= 0);
     setTotal(totalStock);
   }, [stocks]);
 
