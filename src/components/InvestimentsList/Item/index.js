@@ -9,7 +9,13 @@ import {
   Value,
 } from './styles';
 
-export default function Item({ title, subTitle, value }) {
+export default function Item({ itemData }) {
+  const {
+    nome: title,
+    objetivo: subTitle,
+    saldoTotalDisponivel: value,
+  } = itemData;
+
   return (
     <Container>
       <ContainerTitle>
@@ -17,7 +23,9 @@ export default function Item({ title, subTitle, value }) {
         <SubTitle>{subTitle}</SubTitle>
       </ContainerTitle>
       <ContainerValue>
-        <Value>{value}</Value>
+        <Value>
+          {value.toLocaleString('pt-br', { minimumFractionDigits: 2 })}
+        </Value>
       </ContainerValue>
     </Container>
   );

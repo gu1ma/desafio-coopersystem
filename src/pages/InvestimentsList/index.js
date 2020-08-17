@@ -1,46 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { FlatList, Text } from 'react-native';
+import { FlatList } from 'react-native';
 
 import { Container } from './styles';
+
+import colors from '~/styles/colors';
+
+import Loader from 'react-native-modal-loader';
 
 import ListHeader from '~/components/InvestimentsList/Header';
 import Item from '~/components/InvestimentsList/Item';
 
+import api from '~/services/api';
+
 export default function InvestimentsList() {
-  const data = [
-    {
-      id: 1,
-      title: 'INVESTIMENTO I',
-      subTitle: 'Minha aposentadoria',
-      value: '75.100,00',
-    },
-    {
-      id: 2,
-      title: 'INVESTIMENTO I',
-      subTitle: 'Minha aposentadoria',
-      value: '75.100,00',
-    },
-  ];
+  const [loading, setLoading] = useState(false);
+  const [investimentsList, setInvestimentsList] = useState([]);
+
+  useEffect(() => {
+    async function getListInvestiments() {
+      setLoading(true);
+      const { data } = await api.get('5e76797e2f0000f057986099');
+      setInvestimentsList(data.response.data.listaInvestimentos);
+      setLoading(false);
+    }
+
+    getListInvestiments();
+  }, []);
 
   return (
     <Container>
+      <Loader loading={loading} color={colors.secondary} />
       <FlatList
         ListHeaderComponent={ListHeader}
-        data={data}
-        keyExtractor={(investItem) => String(investItem.id)}
-        //onEndReached={() => {}}
-        onEndReachedThreshold={0.1}
-        //ListFooterComponent={loading && <Loading />}
-        //onRefresh={refreshList} // Quando esta carregando
-        //refreshing={refreshing}
-        renderItem={({ item }) => (
-          <Item
-            title={item.title}
-            subTitle={item.subTitle}
-            value={item.value}
-          />
-        )}
+        data={investimentsList}
+        keyExtractor={(investItem) => String(investItem.nome)}
+        renderItem={({ item }) => <Item itemData={item} />}
       />
     </Container>
   );
