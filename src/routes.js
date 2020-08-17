@@ -1,7 +1,30 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
 
-import Main from '~/pages/Main';
+import colors from '~/styles/colors';
 
-const Routes = createAppContainer(createSwitchNavigator({ Main }));
+import InvestimentsList from '~/pages/InvestimentsList';
 
-export default Routes;
+export default function Routes() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="InvestimentsList"
+          options={() => {
+            return {
+              headerTitle: 'Resgate',
+              headerTintColor: colors.primary,
+              headerStyle: {
+                backgroundColor: colors.secondary,
+              },
+            };
+          }}
+          component={InvestimentsList}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
