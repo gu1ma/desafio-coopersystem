@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { FlatList } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 
 import { Container } from './styles';
 
@@ -13,7 +13,7 @@ import Item from '~/components/InvestimentsList/Item';
 
 import api from '~/services/api';
 
-export default function InvestimentsList() {
+export default function InvestimentsList({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [investimentsList, setInvestimentsList] = useState([]);
 
@@ -32,10 +32,17 @@ export default function InvestimentsList() {
     <Container>
       <Loader loading={loading} color={colors.secondary} />
       <FlatList
-        ListHeaderComponent={ListHeader}
+        ListHeaderComponent={
+          <ListHeader leftTitle="Investimentos" rightTitle="R$" />
+        }
         data={investimentsList}
         keyExtractor={(investItem) => String(investItem.nome)}
-        renderItem={({ item }) => <Item itemData={item} />}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate('RescueConfirm', item)}>
+            <Item itemData={item} />
+          </TouchableOpacity>
+        )}
       />
     </Container>
   );

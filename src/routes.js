@@ -6,6 +6,7 @@ const Stack = createStackNavigator();
 import colors from '~/styles/colors';
 
 import InvestimentsList from '~/pages/InvestimentsList';
+import RescueConfirm from '~/pages/RescueConfirm';
 
 export default function Routes() {
   return (
@@ -23,6 +24,19 @@ export default function Routes() {
             };
           }}
           component={InvestimentsList}
+        />
+        <Stack.Screen
+          name="RescueConfirm"
+          options={() => {
+            return {
+              headerTitle: 'Resgate',
+              headerTintColor: colors.primary,
+              headerStyle: {
+                backgroundColor: colors.secondary,
+              },
+            };
+          }}
+          component={RescueConfirm}
         />
       </Stack.Navigator>
     </NavigationContainer>

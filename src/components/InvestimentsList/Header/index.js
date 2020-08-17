@@ -4,13 +4,17 @@ import { Container, Title } from './styles';
 
 import YellowLine from '~/components/InvestimentsList/YellowLine';
 
-export default function Header() {
+export default function Header({
+  leftTitle = '',
+  rightTitle = '',
+  renderBottomLine = true,
+}) {
   return (
     <>
-      <YellowLine />
+      {renderBottomLine && <YellowLine />}
       <Container>
-        <Title>Investimentos</Title>
-        <Title>R$</Title>
+        <Title>{leftTitle}</Title>
+        <Title>{rightTitle}</Title>
       </Container>
     </>
   );
