@@ -60,7 +60,7 @@ export default function RescueItem({ rescueData, total }) {
     <ContainerStocks>
       <InfoContainer>
         <Title>Ação</Title>
-        <Desc>{rescueData.nome}</Desc>
+        <Desc testeID="rescueName">{rescueData.nome}</Desc>
       </InfoContainer>
       <InfoContainer>
         <Title>Saldo acumulado</Title>
