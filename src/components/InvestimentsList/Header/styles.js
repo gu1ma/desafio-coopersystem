@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  background: #bbbbc6;
+  background: #e0dede;
   flex-direction: row;
   justify-content: space-between;
   padding: 15px 10px;
@@ -11,5 +11,5 @@ export const Title = styled.Text`
   font-size: 16px;
   text-transform: uppercase;
   font-weight: bold;
-  color: #68686d;
+  color: #6f6f6f;
 `;
