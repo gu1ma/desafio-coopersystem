@@ -5,16 +5,21 @@ import { FlatList, Text } from 'react-native';
 import { Container } from './styles';
 
 import ListHeader from '~/components/InvestimentsList/Header';
+import Item from '~/components/InvestimentsList/Item';
 
 export default function InvestimentsList() {
   const data = [
     {
       id: 1,
-      value: 'opa',
+      title: 'INVESTIMENTO I',
+      subTitle: 'Minha aposentadoria',
+      value: '75.100,00',
     },
     {
       id: 2,
-      value: 'fala',
+      title: 'INVESTIMENTO I',
+      subTitle: 'Minha aposentadoria',
+      value: '75.100,00',
     },
   ];
 
@@ -23,13 +28,19 @@ export default function InvestimentsList() {
       <FlatList
         ListHeaderComponent={ListHeader}
         data={data}
-        keyExtractor={(post) => String(post.id)}
-        //onEndReached={() => loadNewsPosts()}
+        keyExtractor={(investItem) => String(investItem.id)}
+        //onEndReached={() => {}}
         onEndReachedThreshold={0.1}
         //ListFooterComponent={loading && <Loading />}
         //onRefresh={refreshList} // Quando esta carregando
         //refreshing={refreshing}
-        renderItem={({ item }) => <Text>{item.value}</Text>}
+        renderItem={({ item }) => (
+          <Item
+            title={item.title}
+            subTitle={item.subTitle}
+            value={item.value}
+          />
+        )}
       />
     </Container>
   );
